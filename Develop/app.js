@@ -1,9 +1,11 @@
+// Importing necessary classes and modules
 const inquirer = require("inquirer");
 const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 let choice = "";
 
+// Generating our HTML page, will be the final function to run
 function generateHTML() {
   const html =
     `<!DOCTYPE html>
@@ -32,6 +34,7 @@ function generateHTML() {
   return html;
 }
 
+// Prompts the user to choose the next team profile to generate
 let newChoice = () => {
   return new Promise((resolve) => {
     inquirer
@@ -50,8 +53,13 @@ let newChoice = () => {
   });
 };
 
+// Prompts the user to fill out next team profile credentials
+// Will wait for newChoice() to resolve, then it will give the user some prompts
+// Continue adding Team Profiles until the user chooses "Generate Profiles!"
 let newEmployee = async () => {
   await newChoice();
+
+  // User chooses an engineer
   if (choice === "Engineer") {
     inquirer
       .prompt([
@@ -77,8 +85,10 @@ let newEmployee = async () => {
         },
       ])
       .then((data) => {
+        // Show engineer data in the console
         console.log(data);
 
+        // Initialize a new Engineer object with essential credentials from data
         let en = new Engineer(data.name, data.id, data.email, data.github);
 
         let enName = `<p class="cardhead">${en.name}</p>`;
@@ -86,6 +96,8 @@ let newEmployee = async () => {
         let enID = `<p>${en.id}</p>`;
         let enEmail = `<p>Email: <a href="mailto:${en.email}">${en.email}</a></p>`;
         let enGit = `<p>GitHub: <a href="https://github.com/${en.github}">${en.github}</a></p>`;
+        
+        // New global <div> variable to append to our generateHTML() function
         globalThis.enDiv =
           `<div class="allteamcard">` +
           enName +
@@ -97,8 +109,11 @@ let newEmployee = async () => {
           `</div>` +
           `</div>`;
 
+        // Returns user to newChoice() to choose another employee or finish program
         newEmployee();
       });
+
+      // User chooses an intern
   } else if (choice === "Intern") {
     inquirer
       .prompt([
@@ -124,8 +139,10 @@ let newEmployee = async () => {
         },
       ])
       .then((data) => {
+        // Shows Intern data in the console
         console.log(data);
 
+        // Initializes a new Intern object with essential credentials
         const i = new Intern(data.name, data.id, data.email, data.school);
 
         let inName = `<p class="cardhead">${i.name}</p>`;
@@ -133,6 +150,8 @@ let newEmployee = async () => {
         let inID = `<p>${i.id}</p>`;
         let inEmail = `<p><a href="mailto:${i.email}">${i.email}</a></p>`;
         let inSchool = `<p>${i.school}</p>`;
+        
+        // New global <div> variable to insert into our generateHTML() function
         globalThis.inDiv =
           `<div class="allteamcard">` +
           inName +
@@ -143,17 +162,27 @@ let newEmployee = async () => {
           inSchool +
           `</div>` +
           `</div>`;
-
+        
+        // Returns user to newChoice() to choose another employee or finish program
         newEmployee();
       });
+
+    // The User is finished generating team profiles
   } else if (choice === "Generate Profiles!") {
+
+    // Inform the user the profiles are generating
     console.log("Generating team profile...");
+    
+    // Write the user's input information into a newly generated HTML document with Team Profile cards
     return fs.writeFile("./dist/index.html", generateHTML(), (err) =>
+    
+    // If there's an error, show in console, otherwise log "Success!"
       err ? console.log(err) : console.log("Success!")
     );
   }
 };
 
+// Export to index.js
 module.exports = {
   generateHTML,
   newChoice,
