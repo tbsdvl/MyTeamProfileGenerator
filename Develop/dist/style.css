@@ -1,11 +1,14 @@
+/* Style the body background*/
 body {
     background-color: rgb(201, 243, 248);
 }
 
+/* Style anchor tag font */
 a {
     color: whitesmoke;
 }
 
+/* Style the header's font and background */
 header {
     display: flex;
     text-align: center;
@@ -19,10 +22,12 @@ header {
     margin: 0px;
 }
 
+/* Style the main section to display flex */
 main {
     display: flex;
 }
 
+/* Style the Team Profile cards */
 .teamcards {
     display: flex;
     flex-direction: row;
@@ -30,6 +35,7 @@ main {
     justify-content: space-between;
 }
 
+/* Style the content of the Team Profile cards */
 .card {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -44,6 +50,7 @@ main {
     border-radius: 5px;
 }
 
+/* Style the header for the Team Profile cards */
 .cardhead {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -54,6 +61,7 @@ main {
     color: whitesmoke;
 }
 
+/* Style the background for the Team Profile headers and cards */
 .allteamcard {
     background-color: rgb(192, 243, 250);
     border-radius: 15px;

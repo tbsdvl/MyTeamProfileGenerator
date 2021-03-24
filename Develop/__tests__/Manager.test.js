@@ -1,5 +1,7 @@
+// Import Manager subclass
 const Manager = require("../lib/Manager");
 
+// Initialize Manager object
 describe("Manager", () => {
   describe("Initialize", () => {
     test("Can initialize a Manager object", () => {
@@ -8,6 +10,7 @@ describe("Manager", () => {
         expect(typeof m).toBe("object");
     });
 
+    // Test Manager officeNumber attribute
     test("Can add officeNumber attribute to Manager object", () => {
         const officeNumber = 1;
 
@@ -17,6 +20,7 @@ describe("Manager", () => {
     });
   });
 
+  // Return Manager's role
   describe("Can get the role of Manager with getRole() method", () => {
       const role = "Manager";
 

@@ -1,5 +1,7 @@
+// Import Engineer subclass
 const Engineer = require("../lib/Engineer");
 
+// Initialize Engineer object
 describe("Engineer", () => {
     describe("Initialize", () => {
         test("Can initialize an engineer object", () => {
@@ -8,6 +10,7 @@ describe("Engineer", () => {
             expect(typeof en).toBe("object");
         })
 
+        // Test Engineer's github attribute
         test("Can add github attribute to engineer object", () => {
             const github = "tbsdvl"
 
@@ -17,6 +20,7 @@ describe("Engineer", () => {
         })
     });
 
+    // Return Engineer's github username
     describe("Can get the github of an Engineer with the getGithub() method", () => {
         const github = "tbsdvl";
 
@@ -25,6 +29,7 @@ describe("Engineer", () => {
         expect(en.getGithub()).toBe(github);
     })
 
+    // Return Engineer's role
     describe("Can get the role of an Engineer with the getRole() method", () => {
         const role = "Engineer";
 
