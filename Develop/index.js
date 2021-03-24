@@ -78,7 +78,7 @@ let newEmployee = async () => {
         console.log(data);
 
         const en = new Engineer(data.name, data.id, data.email, data.github);
-        newChoice();
+        newEmployee();
       });
   } else if (choice === "Intern") {
     inquirer
@@ -108,7 +108,7 @@ let newEmployee = async () => {
         console.log(data);
 
         const i = new Intern(data.name, data.id, data.email, data.school);
-        newChoice();
+        newEmployee();
       });
   } else if (choice === "All done!") {
     console.log("Generating team profile...");
@@ -146,4 +146,4 @@ inquirer
     const m = new Manager(data.name, data.id, data.email, data.officeNumber);
 
     newEmployee();
-  });
+    });
