@@ -8,10 +8,6 @@ write tests first, then return code later
 I am prompted for my team members and their information
 an HTML file is generated that displays a nicely formatted team roster based on user input
 
-const newHTML = `
-<!DOCTYPE html>
-
-
 I click on an email address in the HTML
 my default email program opens and populates the TO field of the email with the address
 
