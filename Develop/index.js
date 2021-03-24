@@ -1,7 +1,9 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+let choice = "";
 
 function generateHTML() {
   const html = `<!DOCTYPE html>
@@ -28,7 +30,8 @@ function generateHTML() {
   return html;
 }
 
-const newChoice = () => {
+let newChoice = () => {
+  return new Promise((resolve) => {
     inquirer
       .prompt([
         {
@@ -40,10 +43,80 @@ const newChoice = () => {
       ])
       .then((data) => {
         console.log(data.employeeChoice);
-        return data.employeeChoice;
+        resolve(choice = data.employeeChoice);
       });
-}
+  });
+};
 
+let newEmployee = async () => {
+  await newChoice();
+  if (choice === "Engineer") {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Enter Engineer's Name: ",
+          name: "name",
+        },
+        {
+          type: "input",
+          message: "Enter Engineer's Employee ID: ",
+          name: "id",
+        },
+        {
+          type: "input",
+          message: "Enter Engineer's Email: ",
+          name: "email",
+        },
+        {
+          type: "input",
+          message: "Enter Engineer's GitHub username: ",
+          name: "github",
+        },
+      ])
+      .then((data) => {
+        console.log(data);
+
+        const en = new Engineer(data.name, data.id, data.email, data.github);
+        newChoice();
+      });
+  } else if (choice === "Intern") {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Enter Intern's Name: ",
+          name: "name",
+        },
+        {
+          type: "input",
+          message: "Enter Intern's Employee ID: ",
+          name: "id",
+        },
+        {
+          type: "input",
+          message: "Enter Intern's Email: ",
+          name: "email",
+        },
+        {
+          type: "input",
+          message: "Enter Intern's school: ",
+          name: "school",
+        },
+      ])
+      .then((data) => {
+        console.log(data);
+
+        const i = new Intern(data.name, data.id, data.email, data.school);
+        newChoice();
+      });
+  } else if (choice === "All done!") {
+    console.log("Generating team profile...");
+    return fs.writeFile("index.html", generateHTML(), (err) =>
+    err ? console.log(err) : console.log("Success!")
+  );
+  }
+};
 inquirer
   .prompt([
     {
@@ -70,10 +143,7 @@ inquirer
   .then((data) => {
     console.log(data);
 
-    fs.writeFile("index.html", generateHTML(), (err) =>
-      err ? console.log(err) : console.log("Success!")
-    );
-
     const m = new Manager(data.name, data.id, data.email, data.officeNumber);
-    newChoice();
+
+    newEmployee();
   });
